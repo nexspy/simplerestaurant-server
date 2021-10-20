@@ -43,15 +43,19 @@ app.get('/', (req, res) => {
 
 // app.use('/users', userRoutes);
 
-mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => {
-        app.listen(PORT, () => {
-            console.log(`server running on port ${PORT}`);
-        })
-    })
-    .catch((error) => {
-        console.log(error.message);
-    });
+app.listen(PORT, () => {
+    console.log(`server running on port ${PORT}`);
+})
 
-// prevent error on console
-mongoose.set('useFindAndModify', false);
+// mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+//     .then(() => {
+//         app.listen(PORT, () => {
+//             console.log(`server running on port ${PORT}`);
+//         })
+//     })
+//     .catch((error) => {
+//         console.log(error.message);
+//     });
+
+// // prevent error on console
+// mongoose.set('useFindAndModify', false);
