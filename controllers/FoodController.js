@@ -8,7 +8,9 @@ export const getFoodItems = async (req, res) => {
     var message = "no food item found";
 
     try {
-        const foods = await FoodModel.find();
+        const body = req.body;
+        
+        const foods = await FoodModel.find().skip(body.page*body.perpage).limit(body.perpage);
 
         success = true;
         message = "loaded food item successfully";
