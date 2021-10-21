@@ -11,6 +11,7 @@ import sessions from 'express-session';
 
 // import eventRoutes from './routes/events.js';
 // import userRoutes from './routes/user.js';
+import foodRoutes from './routes/FoodRoutes.js';
 
 const app = express();
 
@@ -42,20 +43,21 @@ app.get('/', (req, res) => {
 });
 
 // app.use('/users', userRoutes);
+app.use('/foods', foodRoutes);
 
-app.listen(PORT, () => {
-    console.log(`server running on port ${PORT}`);
-})
+// app.listen(PORT, () => {
+//     console.log(`server running on port ${PORT}`);
+// })
 
-// mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
-//     .then(() => {
-//         app.listen(PORT, () => {
-//             console.log(`server running on port ${PORT}`);
-//         })
-//     })
-//     .catch((error) => {
-//         console.log(error.message);
-//     });
+mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+        app.listen(PORT, () => {
+            console.log(`server running on port ${PORT}`);
+        })
+    })
+    .catch((error) => {
+        console.log(error.message);
+    });
 
-// // prevent error on console
-// mongoose.set('useFindAndModify', false);
+// prevent error on console
+mongoose.set('useFindAndModify', false);
