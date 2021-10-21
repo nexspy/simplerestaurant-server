@@ -93,3 +93,36 @@ export const deleteFoodItem = async (req, res) => {
         });
     }
 }
+
+export const updateFoodItem = async (req, res) => {
+    var success = false;
+    var message = "could not update the food item";
+
+    try {
+        const body = req.body;
+        const id = req.params.foodId;
+
+        const result = await FoodModel.updateOne(
+            { _id: id },
+            { $set: body }
+        );
+
+        if (result.nModified) {
+            success = true;
+            message = "the food item was updated";
+        }
+
+        res.status(200).json({
+            success: success,
+            message: message,
+            food: result,
+        });
+
+    } catch (error) {
+        res.status(404).json({
+            success: success,
+            message: message,
+            food: false,
+        });
+    }
+}
