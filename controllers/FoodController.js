@@ -9,8 +9,18 @@ export const getFoodItems = async (req, res) => {
 
     try {
         const body = req.body;
+
+        var page = parseInt(req.query.page);
+        var perpage = parseInt(req.query.perpage);
+        if (page == NaN) {
+            page = 0;
+        }
+        if (perpage == NaN) {
+            perpage = 10;
+        }
         
-        const foods = await FoodModel.find().skip(body.page*body.perpage).limit(body.perpage);
+        
+        const foods = await FoodModel.find().skip(page*perpage).limit(perpage);
 
         success = true;
         message = "loaded food item successfully";
