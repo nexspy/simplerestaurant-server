@@ -21,7 +21,13 @@ const FoodSchema = mongoose.Schema({
     },
     price: {
         type: Number,
-    }
+    },
+    veg: {
+        type: Boolean
+    },
+    status: {
+        type: Boolean
+    },
 });
 
 const FoodModel = mongoose.model('FoodModel', FoodSchema);
