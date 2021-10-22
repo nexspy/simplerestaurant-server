@@ -10,8 +10,12 @@ export const getFoodItems = async (req, res) => {
     try {
         const body = req.body;
 
+        var search = req.query.search;
         var page = parseInt(req.query.page);
         var perpage = parseInt(req.query.perpage);
+        if (search == NaN) {
+            search = '';
+        }
         if (page == NaN) {
             page = 0;
         }
@@ -20,7 +24,14 @@ export const getFoodItems = async (req, res) => {
         }
         
         
-        const foods = await FoodModel.find().skip(page*perpage).limit(perpage);
+        var foods = [];
+        if (search.length) {
+            foods = await FoodModel.find({
+                'name': { "$regex": search, "$options": "i" }
+            }).skip(page*perpage).limit(perpage);
+        } else {
+            foods = await FoodModel.find().skip(page*perpage).limit(perpage);
+        }
 
         success = true;
         message = "loaded food item successfully";
