@@ -9,8 +9,7 @@ import moment from 'moment';
 import cookieParser from 'cookie-parser';
 import sessions from 'express-session';
 
-// import eventRoutes from './routes/events.js';
-// import userRoutes from './routes/user.js';
+import menuRoutes from './routes/MenuRoutes.js';
 import foodRoutes from './routes/FoodRoutes.js';
 
 const app = express();
@@ -42,7 +41,7 @@ app.get('/', (req, res) => {
     res.send('Simple Restaurant API : System is live');
 });
 
-// app.use('/users', userRoutes);
+app.use('/menus', menuRoutes);
 app.use('/foods', foodRoutes);
 
 // app.listen(PORT, () => {
