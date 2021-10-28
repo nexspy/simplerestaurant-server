@@ -11,6 +11,7 @@ import sessions from 'express-session';
 
 import menuRoutes from './routes/MenuRoutes.js';
 import foodRoutes from './routes/FoodRoutes.js';
+import orderRoutes from './routes/OrderRoutes.js';
 
 const app = express();
 
@@ -43,6 +44,7 @@ app.get('/', (req, res) => {
 
 app.use('/menus', menuRoutes);
 app.use('/foods', foodRoutes);
+app.use('/orders', orderRoutes);
 
 // app.listen(PORT, () => {
 //     console.log(`server running on port ${PORT}`);
