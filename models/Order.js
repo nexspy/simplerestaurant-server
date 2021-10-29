@@ -11,6 +11,10 @@ const OrderSchema = mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'FoodModel'
         },
+        name: {
+            type: String,
+            required: true
+        },
         quantity: {
             type: Number,
             required: true
@@ -24,6 +28,10 @@ const OrderSchema = mongoose.Schema({
             required: true
         },
     }],
+    table: {
+        type: String,
+        default: ''
+    },
     date: {
         type: Date,
         default: Date.now
