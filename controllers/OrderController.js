@@ -23,6 +23,31 @@ export const getOrders = async (req, res) => {
     }
 }
 
+export const getOrder = async (req, res) => {
+    var success = false;
+    var message = 'no order found';
+    try {
+        const id = req.params.orderId;
+        console.log('id is ' + id);
+        const order = await OrderModel.find({ _id: id });
+
+        success = true;
+        message = 'found order item';
+
+        res.status(200).json({
+            success: success,
+            message: message,
+            order: order[0],
+        });
+    } catch(error) {
+        res.status(200).json({
+            success: success,
+            message: message,
+            order: [],
+        });
+    }
+}
+
 export const createOrder = async (req, res) => {
     var success = false;
     var message = 'order could not be created';
