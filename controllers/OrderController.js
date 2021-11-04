@@ -1,4 +1,34 @@
+import moment from 'moment';
 import OrderModel from '../models/Order.js';
+
+export const getCurrentOrders = async (req, res) => {
+    var success = false;
+    var message = 'no orders found';
+    try {
+        var start = moment().startOf('day'); // set to 12:00 am today
+        var end = moment().endOf('day'); // set to 23:59 pm today
+
+        const orders = await OrderModel.find({
+            'status': true,
+            'date': { $gte: start, $lt: end }
+        });
+
+        success = true;
+        message = 'found orders';
+
+        res.status(200).json({
+            success: success,
+            message: message,
+            orders: orders,
+        });
+    } catch(error) {
+        res.status(200).json({
+            success: success,
+            message: message,
+            orders: [],
+        });
+    }
+}
 
 export const getOrders = async (req, res) => {
     var success = false;
@@ -28,7 +58,6 @@ export const getOrder = async (req, res) => {
     var message = 'no order found';
     try {
         const id = req.params.orderId;
-        console.log('id is ' + id);
         const order = await OrderModel.find({ _id: id });
 
         success = true;
