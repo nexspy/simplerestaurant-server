@@ -11,7 +11,7 @@ export const getCurrentOrders = async (req, res) => {
         const orders = await OrderModel.find({
             'status': true,
             'date': { $gte: start, $lt: end }
-        });
+        }).sort({ 'date': -1 });
 
         success = true;
         message = 'found orders';
@@ -34,7 +34,7 @@ export const getOrders = async (req, res) => {
     var success = false;
     var message = 'no orders found';
     try {
-        const orders = await OrderModel.find();
+        const orders = await OrderModel.find().sort({ date: -1 });
 
         success = true;
         message = 'found orders';
