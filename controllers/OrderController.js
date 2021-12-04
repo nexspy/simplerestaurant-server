@@ -34,7 +34,15 @@ export const getOrders = async (req, res) => {
     var success = false;
     var message = 'no orders found';
     try {
-        const orders = await OrderModel.find().sort({ date: -1 });
+        var filters = {};
+        const startDate = (typeof req.body.startDate !== "undefined") ? req.body.startDate : null;
+        const endDate = (typeof req.body.endDate !== "undefined") ? req.body.endDate : null;
+
+        if (startDate !== null) {
+            filters['date'] = { $gte: startDate, $lt: endDate };
+        }
+
+        const orders = await OrderModel.find(filters).sort({ date: -1 });
 
         success = true;
         message = 'found orders';
