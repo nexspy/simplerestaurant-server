@@ -42,8 +42,6 @@ export const getOrders = async (req, res) => {
             filters['date'] = { $gte: startDate, $lt: endDate };
         }
 
-        console.log(filters);
-
         const orders = await OrderModel.find(filters).sort({ date: -1 });
 
         success = true;
