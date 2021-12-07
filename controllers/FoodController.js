@@ -53,6 +53,31 @@ export const getFoodItems = async (req, res) => {
     }
 }
 
+export const getFoodItem = async (req, res) => {
+    var success = false;
+    var message = "food item was not found";
+
+    try {
+        const id = req.params.foodId;
+        const food = await FoodModel.find({ _id: id });
+
+        success = true;
+        message = "loaded food item successfully";
+
+        res.status(200).json({
+            success: success,
+            message: message,
+            food: food[0],
+        });
+    } catch (error) {
+        res.status(404).json({
+            success: success,
+            message: message,
+            food: false,
+        });
+    }
+}
+
 export const saveFoodItem = async (req, res) => {
     var success = false;
     var message = "could not save the food item";
@@ -124,6 +149,9 @@ export const updateFoodItem = async (req, res) => {
     try {
         const body = req.body;
         const id = req.params.foodId;
+
+        console.log('id : ' + id);
+        console.log(body);
 
         const result = await FoodModel.updateOne(
             { _id: id },
